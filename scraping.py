@@ -26,6 +26,10 @@ def float_or_na(value):
     return float(value) if value != 'N/A' else -1
 
 
+def int_or_na(value):
+    return int(value) if value != 'N/A' else 1000
+
+
 def check_overall_for_each_category(overall: float | str) -> str:
     if 100.0 >= overall >= 80.0:
         return 'Free'
@@ -86,7 +90,6 @@ def retorn_list_by_category(country_list_test):
 
 
 def main_method():
-
     category_list = []
     country_list = []
     rank_list = []
@@ -104,6 +107,8 @@ def main_method():
                         'Overall': point}
 
         country_list.append(country_dict)
+
+    country_list.sort(key=lambda k: int_or_na(k['Rank']))
 
     for category, lista in zip(categories, retorn_list_by_category(country_list)):
         category_dict = {f'{category}': lista}
